@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinSight AI</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    
+    <div class="container">
+        <!-- Auth View -->
+        <section id="auth-view" class="glass-panel active">
+            <h1 class="logo">FinSight <span>AI</span></h1>
+            <p class="subtitle">Intelligent Expense Tracking</p>
+            
+            <div class="auth-tabs">
+                <button class="tab-btn active" onclick="switchTab('login')">Login</button>
+                <button class="tab-btn" onclick="switchTab('register')">Register</button>
+            </div>
+
+            <form id="auth-form" onsubmit="handleAuth(event)">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" required autocomplete="off" placeholder="Enter your username">
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required placeholder="Enter your password">
+                </div>
+                <button type="submit" class="primary-btn" id="auth-submit">Login</button>
+                <div id="auth-error" class="error-msg"></div>
+            </form>
+        </section>
+
+        <!-- Dashboard View -->
+        <section id="dashboard-view" class="glass-panel hidden">
+            <header>
+                <h2 class="logo">FinSight <span>AI</span></h2>
+                <div class="user-controls">
+                    <span id="welcome-msg"></span>
+                    <button class="secondary-btn" onclick="logout()">Logout</button>
+                </div>
+            </header>
+
+            <div class="dashboard-grid">
+                <!-- Add Expense Section -->
+                <div class="card add-expense-card">
+                    <h3>Log New Expense</h3>
+                    <form id="expense-form" onsubmit="handleAddExpense(event)">
+                        <div class="input-group">
+                            <label for="amount">Amount ($)</label>
+                            <input type="number" step="0.01" id="amount" required placeholder="0.00">
+                        </div>
+                        <div class="input-group">
+                            <label for="date">Date</label>
+                            <input type="date" id="date" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="description">Description (Be descriptive for AI!)</label>
+                            <input type="text" id="description" required placeholder="e.g. bought 2 large coffees at starbucks">
+                        </div>
+                        <button type="submit" class="primary-btn" id="expense-submit">
+                            <span class="btn-text">Add Expense</span>
+                            <span class="loader hidden"></span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- AI Summary Section -->
+                <div class="card summary-card">
+                    <h3>AI Financial Advisor</h3>
+                    <div id="ai-summary-content" class="summary-content">
+                        <p class="placeholder-text">Click the button below to analyze your spending habits.</p>
+                    </div>
+                    <button class="glow-btn" onclick="generateSummary()" id="summary-btn">
+                        ✨ Generate AI Summary ✨
+                    </button>
+                </div>
+
+                <!-- Expense List Section -->
+                <div class="card list-card">
+                    <h3>Recent Expenses</h3>
+                    <div class="table-container">
+                        <table id="expense-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th>Amount</th>
+                                    <th>AI Category</th>
+                                </tr>
+                            </thead>
+                            <tbody id="expense-list">
+                                <!-- Expenses injected here -->
+                            </tbody>
+                        </table>
+                        <div id="empty-state" class="empty-state">No expenses found.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
